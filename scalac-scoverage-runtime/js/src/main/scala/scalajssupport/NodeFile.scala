@@ -1,6 +1,7 @@
 package scalajssupport
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.JSGlobal
 
 class NodeFile(path: String) extends JsFile {
   def this(path: String, child: String) = {
@@ -85,9 +86,17 @@ trait NodePath extends js.Object {
   def join(paths: String*): String = js.native
 }
 
+@js.native
+@JSGlobal("global")
+object NodeJsGlobal extends js.Object {
+  def require(module: String): js.Any = js.native
+}
+
 private[scalajssupport] object NodeFile extends JsFileObject {
-  val fs: FS = js.Dynamic.global.require("fs").asInstanceOf[FS]
-  val nodePath: NodePath = js.Dynamic.global.require("path").asInstanceOf[NodePath]
+
+  private val fs: FS = NodeJsGlobal.require("fs").asInstanceOf[FS]
+  private val nodePath: NodePath = NodeJsGlobal.require("path").asInstanceOf[NodePath]
+
   def write(path: String, data: String, mode: String = "a") = {
     fs.writeFileSync(path, data, js.Dynamic.literal(flag = mode))
   }

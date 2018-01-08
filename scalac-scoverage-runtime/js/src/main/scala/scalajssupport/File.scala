@@ -57,9 +57,10 @@ class File(path: String) {
 }
 
 object File {
-  val jsFile: JsFileObject = if (js.Dynamic.global.hasOwnProperty("Packages").asInstanceOf[Boolean])
+
+  private val jsFile: JsFileObject = if (g.hasOwnProperty("Packages").asInstanceOf[Boolean])
     RhinoFile
-  else if (!js.Dynamic.global.hasOwnProperty("window").asInstanceOf[Boolean])
+  else if (js.typeOf(g.global) == "object" && js.typeOf(g.global.require) == "function")
     NodeFile
   else
     PhantomFile
