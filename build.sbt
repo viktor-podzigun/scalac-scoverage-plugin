@@ -6,7 +6,7 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import org.scalajs.sbtplugin.cross.CrossProject
 import org.scalajs.sbtplugin.cross.CrossType
 
-val Org = "org.scoverage"
+val Org = "org.scommons.patched"
 val MockitoVersion = "1.10.19"
 val ScalatestVersion = "3.0.4"
 
