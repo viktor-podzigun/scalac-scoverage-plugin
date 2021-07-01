@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Scala env
-        uses: olafurpg/setup-scala@v10
+        uses: olafurpg/setup-scala@v12
         with:
           java-version: adopt@${{ matrix.java }}
 
